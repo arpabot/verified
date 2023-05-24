@@ -1,0 +1,6 @@
+[submodule "cl-wrapper"]
+	path = cl-wrapper
+	url = https://github.com/yuimarudev/cl-wrapper
+[submodule "cloudcord"]
+	path = cloudcord
+	url = https://github.com/yuimarudev/cloudcord
