@@ -4,7 +4,8 @@ interface Env {
   clientId: string;
   secret: string;
   KV: KVNamespace;
-  turnstileSecretKey: string
+  turnstileSecretKey: string,
+  endpoint: string
 }
 
 declare namespace App {

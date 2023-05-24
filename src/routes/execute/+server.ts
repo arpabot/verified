@@ -10,7 +10,7 @@ export const POST: RequestHandler = async ({
   platform,
   getClientAddress,
   cookies,
-  url
+  url,
 }) => {
   const ip =
     request.headers.get("true-client-ip") ||
@@ -19,14 +19,12 @@ export const POST: RequestHandler = async ({
     getClientAddress();
   const client = _init(platform!.env);
   const vpngateList = await getVpngateList();
-  const { proxy, mobile, hosting } = await (
-    await fetch(`http://ip-api.com/json/${ip}?fields=16990208`)
-  ).json<Record<string, boolean>>();
+  const { proxy, mobile, hosting } = await (await fetch(`${platform?.env.endpoint}/json/${ip}?fields=17022976`)).json<Record<string, boolean>>();
   const { code, token } = await request.json<Record<string, string>>();
   const guildId = JSON.parse(cookies.get("data")!).guild_id;
   if (!(await validateToken(token, platform!.env.turnstileSecretKey)))
     return new Response("", { status: 401 });
-    
+
   if (proxy || mobile || hosting || vpngateList.match(ip))
     return new Response("", { status: 403 });
 
@@ -40,7 +38,7 @@ export const POST: RequestHandler = async ({
           client_secret: platform!.env.secret,
           grant_type: "authorization_code",
           code,
-          redirect_uri: "https://" + url.host +"/oauth2",
+          redirect_uri: "https://" + url.host + "/oauth2",
         }),
         headers: {
           // @ts-ignore
@@ -52,7 +50,9 @@ export const POST: RequestHandler = async ({
 
   const { access_token, token_type } = oauth2TokenExchange;
 
-  await wrap(oauth2TokenExchange, ip, guildId, platform!.env).catch(console.error);
+  await wrap(oauth2TokenExchange, ip, guildId, platform!.env).catch(
+    console.error
+  );
 
   const user = await (
     await fetch(RouteBases.api + Routes.user(), {

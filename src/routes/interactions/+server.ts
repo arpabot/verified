@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({ platform }) => {
   return new Response(JSON.stringify(await client.commands.register()));
 };
 
-export function _init(env: Env) {
+export function _init(env: Env): Client<Env, typeof raw> {
   if (client) return client;
   client = new Client(env, raw);
   main(client, env);
