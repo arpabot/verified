@@ -1,0 +1,42 @@
+{
+  "config": {
+    "description": "BOT configuration commands.",
+    "type": 1,
+    "default_member_permissions": "268435456",
+    "options": [
+      {
+        "type": 1,
+        "name": "role",
+        "description": "Select the role that will be assigned to the authenticated member.",
+        "options": [
+          {
+            "type": 8,
+            "name": "role",
+            "description": "Roles to assign to authenticated members",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "error": "```\nError {0}```"
+  },
+  "send_panel": {
+    "type": 1,
+    "description": "Sends a panel containing an authentication button.",
+    "default_member_permissions": "268435456",
+    "options": [
+      {
+        "type": 3,
+        "name": "scope",
+        "description": "The OAuth2 scope that can be specified as space-delimited. This is a developer feature, so do not"
+      }
+    ]
+  },
+  "_": {
+    "verify": "Verify",
+    "verified": "Verified.",
+    "webDescription": "Authenticate to ensure you are not a robot or insecure user.",
+    "frontError": "Something went wrong...",
+    "restrictedAddress": "You must never use a VPN, proxies, mobile line."
+  }
+}
